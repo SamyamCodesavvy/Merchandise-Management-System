@@ -1,6 +1,8 @@
 from tkinter import *
 from PIL import Image, ImageTk
 import time
+from employee import employeeClass
+
 class RMMS: #retail merchandise management system
     def __init__(self, root):
         # icon_path = 'images/title_icon.ico'  
@@ -39,7 +41,7 @@ class RMMS: #retail merchandise management system
 
         lbl_menu = Label(LeftMenu,text="MENU", font=("Times New Roman", 20, "bold"), bg="#009688", fg="white")
         lbl_menu.pack(side=TOP, fill=X)
-        btn_employee = Button(LeftMenu,text="Employees", font=("Arial", 17, "bold"), image=self.icon_side, compound=LEFT, padx=10, pady=11, anchor="w",bg="white", bd=2,cursor="hand2")
+        btn_employee = Button(LeftMenu,text="Employees", command=self.employee, font=("Arial", 17, "bold"), image=self.icon_side, compound=LEFT, padx=10, pady=11, anchor="w",bg="white", bd=2,cursor="hand2")
         btn_employee.pack(side=TOP, pady=2, fill=X)
 
         btn_supplier = Button(LeftMenu,text="Suppliers", font=("Arial", 17, "bold"), image=self.icon_side, compound=LEFT, padx=10, pady=11, anchor="w",bg="white", bd=2,cursor="hand2")
@@ -97,6 +99,10 @@ class RMMS: #retail merchandise management system
         now = time.strftime("%d-%m-%Y %H:%M:%S")
         self.lbl_clock.config(text=f"Welcome to Digital Merchandise Management System\t\t Date: {now.split()[0]}\t\t Time: {now.split()[1]}")
         self.root.after(1000, self.update_clock)  # Update every second
+#------------------------------------------------------#
+    def employee(self):
+        self.new_win = Toplevel(self.root)
+        self.new_obj = employeeClass(self.new_win)
 
 if __name__ == "__main__":
     root = Tk()
