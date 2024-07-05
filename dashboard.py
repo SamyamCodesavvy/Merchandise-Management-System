@@ -3,8 +3,8 @@ from PIL import Image, ImageTk
 import time
 class RMMS: #retail merchandise management system
     def __init__(self, root):
-        icon_path = 'images/title_icon.ico'  # Replace with your icon file path
-        root.iconbitmap(icon_path)
+        # icon_path = 'images/title_icon.ico'  
+        # root.iconbitmap(icon_path)
         self.root = root
         self.root.geometry("1920x1080+0+0")
         self.root.title("Retail Merchandise Management System | Developed by Samyam Sandip")
@@ -15,11 +15,12 @@ class RMMS: #retail merchandise management system
         title = Label(self.root, text="SS Shopping Mart Merchandise Management System", image=self.icon_title, compound=LEFT, font=("Times New Roman", 30, "bold"), bg="#003f66", fg="#ccffff", anchor="w", padx=7).place(x=0, y=0, relwidth=1, height=75)
 
         #-------Logout Button-------#
-        btn_logout = Button(self.root,text="Logout", font=("Times New Roman", 17, "bold"), bg="#ccffff", cursor="hand2").place(x=1375, y=10, width=150, height=50)
+        btn_logout = Button(self.root,text="Logout", font=("Times New Roman", 17, "bold"), bg="#ccffff", cursor="hand2").place(x=1375, y=13, width=150, height=50)
         
         #-------Timestamp---------#
         self.lbl_clock = Label(self.root, text="Welcome to Digital Merchandise Management System\t\t Date: DD-MM-YYYY\t\t Time: HH:MM:SS", font=("Times New Roman", 15, "italic", "bold"), bg="#4d636d", fg="white")
         self.lbl_clock.place(x=0, y=75, relwidth=1, height=30)
+        self.update_clock()
 
         #-------Left Menu----------#
         self.MenuLogo=Image.open("images/menu_image.png")
@@ -92,7 +93,10 @@ class RMMS: #retail merchandise management system
         lbl_footer = Label(self.root, text="Digital Merchandise Management System | Developed by Samyam Sandip\nFor any Technical Issue, Contact: 98xxxxxxx0", font=("Times New Roman", 15), bg="#4d636d", fg="white") 
         lbl_footer.pack(side=BOTTOM, fill=X)
 
-
+    def update_clock(self):
+        now = time.strftime("%d-%m-%Y %H:%M:%S")
+        self.lbl_clock.config(text=f"Welcome to Digital Merchandise Management System\t\t Date: {now.split()[0]}\t\t Time: {now.split()[1]}")
+        self.root.after(1000, self.update_clock)  # Update every second
 
 root = Tk()
 obj = RMMS(root)
