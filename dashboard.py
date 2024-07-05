@@ -98,6 +98,7 @@ class RMMS: #retail merchandise management system
         self.lbl_clock.config(text=f"Welcome to Digital Merchandise Management System\t\t Date: {now.split()[0]}\t\t Time: {now.split()[1]}")
         self.root.after(1000, self.update_clock)  # Update every second
 
-root = Tk()
-obj = RMMS(root)
-root.mainloop()
+if __name__ == "__main__":
+    root = Tk()
+    obj = RMMS(root)
+    root.mainloop()
