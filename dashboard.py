@@ -99,6 +99,7 @@ class RMMS: #retail merchandise management system
         now = time.strftime("%d-%m-%Y %H:%M:%S")
         self.lbl_clock.config(text=f"Welcome to Digital Merchandise Management System\t\t Date: {now.split()[0]}\t\t Time: {now.split()[1]}")
         self.root.after(1000, self.update_clock)  # Update every second
+        
 #------------------------------------------------------#
     def employee(self):
         self.new_win = Toplevel(self.root)
