@@ -10,13 +10,16 @@ class employeeClass:
         self.root.focus_force() #to highlight the window of employee whenever the employee button is pressed
 
         #------------------searchFrame----------------------#
-        SearchFrame=LabelFrame(self.root, text="Search Employee", bg="white", font=("Baskerville Old Face", 13), bd=3)
+        SearchFrame=LabelFrame(self.root, text="Search Employee", bg="white", font=("Baskerville Old Face", 14), bd=3)
         SearchFrame.place(x=250, y=20, width=600, height=70)
 
         #--------------------dropdown----------------------#
-        cmb_search=ttk.Combobox(SearchFrame, values=("Select","Email","Name","Contact","ID"),state='readonly', justify=CENTER, font=("Arial", 13))
+        cmb_search=ttk.Combobox(SearchFrame, values=("Select","Email","Name","Contact"),state='readonly', justify=CENTER, font=("Times New Roman", 13))
         cmb_search.place(x=8, y=8, width=150)
         cmb_search.current(0) #Select is shown in the dropdown when nothing is selected
+
+        txt_search=Entry(SearchFrame, font=("Times New Roman", 15), bg="lightyellow", width=28).place(x=170, y=7)
+        btn_search=Button(SearchFrame, text="Search", font=("Baskerville Old Face", 15), bg="#4caf50", fg="white", cursor="hand2").place(x=465, y=6, width=120, height=30)
 if __name__ == "__main__":
     root = Tk()
     obj = employeeClass(root)
