@@ -134,7 +134,8 @@
 #     root.mainloop()
 from tkinter import *
 from PIL import Image, ImageTk
-from tkinter import ttk
+from tkinter import ttk, messagebox
+import sqlite3
 
 class employeeClass: 
     def __init__(self, root):
@@ -147,6 +148,7 @@ class employeeClass:
         # All Variables
         self.var_searchby = StringVar()
         self.var_searchtxt = StringVar()
+
         self.var_emp_id = StringVar()
         self.var_gender = StringVar()
         self.var_contact = StringVar()
@@ -235,7 +237,7 @@ class employeeClass:
         txt_salary.place(x=600, y=270, width=180)
 
         # Buttons
-        btn_add = Button(self.root, text="SAVE", font=("goudy old style", 14, "bold"), bg="#006f80", fg="white", cursor="hand2")
+        btn_add = Button(self.root, text="SAVE", command=self.add, font=("goudy old style", 14, "bold"), bg="#006f80", fg="white", cursor="hand2")
         btn_add.place(x=500, y=305, width=110, height=28)
         btn_update = Button(self.root, text="UPDATE", font=("goudy old style", 14, "bold"), bg="#4caf50", fg="white", cursor="hand2")
         btn_update.place(x=620, y=305, width=110, height=28)
@@ -285,9 +287,59 @@ class employeeClass:
         self.EmployeeTable.column("salary", width=100)
 
         self.EmployeeTable.pack(fill=BOTH, expand=1)
+        self.EmployeeTable.bind("<ButtonRelease-1>", self.get_data)
 
+        
+        self.show()
 
-if __name__ == "__main__":
+#----------------------------------------#
+    def add(self):
+        con= sqlite3.connect(database=r'rmms.db')
+        cur=con.cursor()
+        try:
+            if self.var_emp_id.get()=="":
+                messagebox.showerror("Error", "Employee ID must be required", parent=self.root)
+            else:
+                cur.execute("SELECT * FROM employee WHERE eid=?", (self.var_emp_id.get(),))
+                row=cur.fetchone()
+                if row!=None:
+                    messagebox.showerror("Error", "This Employee ID already assigned, try different.", parent=self.root)
+                else:
+                    cur.execute("INSERT INTO employee(eid, name, email, gender, contact, dob, doj, pass, utype, address, salary) values(?,?,?,?,?,?,?,?,?,?,?)",(
+                        self.var_emp_id.get(),
+                        self.var_name.get(),
+                        self.var_email.get(),
+                        self.var_gender.get(),
+                        self.var_contact.get(),
+                        self.var_dob.get(),
+                        self.var_doj.get(),
+                        self.var_pass.get(),
+                        self.var_utype.get(), 
+                        self.txt_address.get('1.0',END),
+                        self.var_salary.get()
+                    ))
+                    con.commit()
+                    messagebox.showinfo("Success", "Employee Added Successfully", parent=self.root)
+                    self.show()
+        except Exception as ex:
+            messagebox.showerror("Error",f"Error due to : {str(ex)}", parent=self.root)
+
+    def show(self):
+        con=sqlite3.connect(database=r'rmms.db')
+        cur=con.cursor()
+        try:
+            cur.execute("SELECT * FROM employee")
+            rows = cur.fetchall()
+            if len(rows)>0:
+                self.EmployeeTable.delete(*self.EmployeeTable.get_children())
+                for row in rows:
+                    self.EmployeeTable.insert('', END, values=row)
+        except Exception as ex:
+            messagebox.showerror("Error",f"Error due to : {str(ex)}", parent=self.root)
+    
+    def get_data(self, ev):
+        
+if __name__ == "__main__": 
     root = Tk()
     obj = employeeClass(root)
     root.mainloop()
