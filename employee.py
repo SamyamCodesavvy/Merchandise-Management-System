@@ -171,7 +171,7 @@ class employeeClass:
 
         txt_search = Entry(SearchFrame, textvariable=self.var_searchtxt, font=("Times New Roman", 15), bg="lightyellow", width=28)
         txt_search.place(x=170, y=7)
-        btn_search = Button(SearchFrame, text="Search", font=("Times New Roman", 14, "italic", "bold"), bg="#008080", fg="white", cursor="hand2")
+        btn_search = Button(SearchFrame, text="Search", command=self.search, font=("Times New Roman", 14, "italic", "bold"), bg="#008080", fg="white", cursor="hand2")
         btn_search.place(x=465, y=6, width=120, height=30)
 
         # Title
@@ -241,9 +241,9 @@ class employeeClass:
         btn_add.place(x=500, y=305, width=110, height=28)
         btn_update = Button(self.root, text="UPDATE", command=self.update, font=("goudy old style", 14, "bold"), bg="#4caf50", fg="white", cursor="hand2")
         btn_update.place(x=620, y=305, width=110, height=28)
-        btn_delete = Button(self.root, text="DELETE", font=("goudy old style", 14, "bold"), bg="#f44336", fg="white", cursor="hand2")
+        btn_delete = Button(self.root, text="DELETE", command=self.delete, font=("goudy old style", 14, "bold"), bg="#f44336", fg="white", cursor="hand2")
         btn_delete.place(x=740, y=305, width=110, height=28)
-        btn_clear = Button(self.root, text="CLEAR", font=("goudy old style", 14, "bold"), bg="#607d8b", fg="white", cursor="hand2")
+        btn_clear = Button(self.root, text="CLEAR", command=self.clear, font=("goudy old style", 14, "bold"), bg="#607d8b", fg="white", cursor="hand2")
         btn_clear.place(x=860, y=305, width=110, height=28)
 
         # Employee Details
@@ -400,12 +400,50 @@ class employeeClass:
                     messagebox.showerror("Error", "Invalid Employee ID.", parent=self.root)
                 else:
                     op=messagebox.askyesno("Confirm", "Do you really want to delete?", parent =self.root)
-                    cur.execute("DELETE FROM employee WHERE eid=?",(self.var_emp_id.get(),))
-                    con.commit()
-                    messagebox.showinfo("Delete", "Employee Deleted Successfully", parent=self.root)
+                    if op == True:
+
+                        cur.execute("DELETE FROM employee WHERE eid=?",(self.var_emp_id.get(),))
+                        con.commit()
+                        messagebox.showinfo("Delete", "Employee Deleted Successfully", parent=self.root)
+                        self.clear()
         except Exception as ex:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 
+    def clear(self):
+        self.var_emp_id.set(""),
+        self.var_name.set(""),
+        self.var_email.set(""),
+        self.var_gender.set("Select"),
+        self.var_contact.set(""),
+        self.var_dob.set(""),
+        self.var_doj.set(""),
+        self.var_pass.set(""),
+        self.var_utype.set("Admin"), 
+        self.txt_address.delete('1.0',END),
+        self.var_salary.set("")
+        self.var_searchtxt.set("")
+        self.var_searchby.set("Select")
+        self.show()
+    
+    def search(self):
+        con=sqlite3.connect(database=r'rmms.db')
+        cur=con.cursor()
+        try:
+            if self.var_searchby.get()=="Select":
+                messagebox.showerror("Error", "No Search By option selected.", parent=self.root)
+            elif self.var_searchtxt.get()=="":
+                messagebox.showerror("Error", "Search input is required.", parent=self.root)
+            else:
+                cur.execute("SELECT * FROM employee WHERE "+self.var_searchby.get()+" LIKE '%"+self.var_searchtxt.get()+"%'")
+                rows = cur.fetchall()
+                if len(rows)!=0:
+                    self.EmployeeTable.delete(*self.EmployeeTable.get_children())
+                    for row in rows:
+                        self.EmployeeTable.insert('', END, values=row)
+                else:
+                    messagebox.showerror("Error", "No record found!!!", parent=self.root)
+        except Exception as ex:
+            messagebox.showerror("Error",f"Error due to : {str(ex)}", parent=self.root)
         
 if __name__ == "__main__": 
     root = Tk()
