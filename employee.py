@@ -239,7 +239,7 @@ class employeeClass:
         # Buttons
         btn_add = Button(self.root, text="SAVE", command=self.add, font=("goudy old style", 14, "bold"), bg="#006f80", fg="white", cursor="hand2")
         btn_add.place(x=500, y=305, width=110, height=28)
-        btn_update = Button(self.root, text="UPDATE", font=("goudy old style", 14, "bold"), bg="#4caf50", fg="white", cursor="hand2")
+        btn_update = Button(self.root, text="UPDATE", command=self.update, font=("goudy old style", 14, "bold"), bg="#4caf50", fg="white", cursor="hand2")
         btn_update.place(x=620, y=305, width=110, height=28)
         btn_delete = Button(self.root, text="DELETE", font=("goudy old style", 14, "bold"), bg="#f44336", fg="white", cursor="hand2")
         btn_delete.place(x=740, y=305, width=110, height=28)
@@ -354,6 +354,59 @@ class employeeClass:
         self.txt_address.insert(END, row[9]),
         self.var_salary.set(row[10])
 
+    def update(self):
+        con= sqlite3.connect(database=r'rmms.db')
+        cur=con.cursor()
+        try:
+            if self.var_emp_id.get()=="":
+                messagebox.showerror("Error", "Employee ID must be required", parent=self.root)
+            else:
+                cur.execute("SELECT * FROM employee WHERE eid=?", (self.var_emp_id.get(),))
+                row=cur.fetchone()
+                if row is None:
+                    messagebox.showerror("Error", "Invalid Employee ID.", parent=self.root)
+                else:
+                    cur.execute("UPDATE employee SET name=?, email=?, gender=?, contact=?, dob=?, doj=?, pass=?, utype=?, address=?, salary=? WHERE eid = ?",(
+                        self.var_name.get(),
+                        self.var_email.get(),
+                        self.var_gender.get(),
+                        self.var_contact.get(),
+
+                        self.var_dob.get(),
+                        self.var_doj.get(),
+
+                        self.var_pass.get(),
+                        self.var_utype.get(), 
+                        self.txt_address.get('1.0',END),
+                        self.var_salary.get(),
+                        self.var_emp_id.get(),
+                    ))
+                    con.commit()
+                    messagebox.showinfo("Success", "Employee Updated Successfully", parent=self.root)
+                    self.show()
+        except Exception as ex:
+            messagebox.showerror("Error",f"Error due to : {str(ex)}", parent=self.root)
+        
+    def delete(self):
+        con= sqlite3.connect(database=r'rmms.db')
+        cur=con.cursor()
+        try:
+            if self.var_emp_id.get()=="":
+                messagebox.showerror("Error", "Employee ID must be required", parent=self.root)
+            else:
+                cur.execute("SELECT * FROM employee WHERE eid=?", (self.var_emp_id.get(),))
+                row=cur.fetchone()
+                if row is None:
+                    messagebox.showerror("Error", "Invalid Employee ID.", parent=self.root)
+                else:
+                    op=messagebox.askyesno("Confirm", "Do you really want to delete?", parent =self.root)
+                    cur.execute("DELETE FROM employee WHERE eid=?",(self.var_emp_id.get(),))
+                    con.commit()
+                    messagebox.showinfo("Delete", "Employee Deleted Successfully", parent=self.root)
+        except Exception as ex:
+            messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
+
+        
 if __name__ == "__main__": 
     root = Tk()
     obj = employeeClass(root)
