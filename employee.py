@@ -316,7 +316,7 @@ class employeeClass:
                         self.var_pass.get(),
                         self.var_utype.get(), 
                         self.txt_address.get('1.0',END),
-                        self.var_salary.get()
+                        self.var_salary.get(),
                     ))
                     con.commit()
                     messagebox.showinfo("Success", "Employee Added Successfully", parent=self.root)
@@ -338,7 +338,22 @@ class employeeClass:
             messagebox.showerror("Error",f"Error due to : {str(ex)}", parent=self.root)
     
     def get_data(self, ev):
-        
+        f = self.EmployeeTable.focus()
+        content = self.EmployeeTable.item(f)
+        row = content['values']
+        self.var_emp_id.set(row[0]),
+        self.var_name.set(row[1]),
+        self.var_email.set(row[2]),
+        self.var_gender.set(row[3]),
+        self.var_contact.set(row[4]),
+        self.var_dob.set(row[5]),
+        self.var_doj.set(row[6]),
+        self.var_pass.set(row[7]),
+        self.var_utype.set(row[8]), 
+        self.txt_address.delete('1.0',END),
+        self.txt_address.insert(END, row[9]),
+        self.var_salary.set(row[10])
+
 if __name__ == "__main__": 
     root = Tk()
     obj = employeeClass(root)
