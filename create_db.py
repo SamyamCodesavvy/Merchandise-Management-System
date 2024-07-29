@@ -7,17 +7,10 @@ def create_db():
     
     cur.execute("""
         CREATE TABLE IF NOT EXISTS employee (
-            eid INTEGER PRIMARY KEY AUTOINCREMENT,
+            invoice INTEGER PRIMARY KEY AUTOINCREMENT,
             name TEXT,
-            email TEXT,
-            gender TEXT,
             contact TEXT,
-            dob TEXT,
-            doj TEXT,
-            pass TEXT,
-            utype TEXT,
-            address TEXT,
-            salary REAL
+            desc TEXT,
         )
     """)
     con.commit()

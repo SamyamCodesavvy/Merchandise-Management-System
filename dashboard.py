@@ -2,6 +2,7 @@ from tkinter import *
 from PIL import Image, ImageTk
 import time
 from employee import employeeClass
+from supplier import supplierClass
 
 class RMMS: #retail merchandise management system
     def __init__(self, root):
@@ -44,7 +45,7 @@ class RMMS: #retail merchandise management system
         btn_employee = Button(LeftMenu,text="Employees", command=self.employee, font=("Arial", 17, "bold"), image=self.icon_side, compound=LEFT, padx=10, pady=11, anchor="w",bg="white", bd=2,cursor="hand2")
         btn_employee.pack(side=TOP, pady=2, fill=X)
 
-        btn_supplier = Button(LeftMenu,text="Suppliers", font=("Arial", 17, "bold"), image=self.icon_side, compound=LEFT, padx=10, pady=11, anchor="w",bg="white", bd=2,cursor="hand2")
+        btn_supplier = Button(LeftMenu, command=self.supplier, text="Suppliers", font=("Arial", 17, "bold"), image=self.icon_side, compound=LEFT, padx=10, pady=11, anchor="w",bg="white", bd=2,cursor="hand2")
         btn_supplier.pack(side=TOP, pady=2, fill=X)
 
         btn_category = Button(LeftMenu,text="Categories", font=("Arial", 17, "bold"), image=self.icon_side, compound=LEFT, padx=10, pady=11, anchor="w",bg="white", bd=2,cursor="hand2")
@@ -104,6 +105,10 @@ class RMMS: #retail merchandise management system
     def employee(self):
         self.new_win = Toplevel(self.root)
         self.new_obj = employeeClass(self.new_win)
+
+    def supplier(self):
+        self.new_win = Toplevel(self.root)
+        self.new_obj = supplierClass(self.new_win)
 
 if __name__ == "__main__":
     root = Tk()
