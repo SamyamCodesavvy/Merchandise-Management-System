@@ -175,8 +175,8 @@ class employeeClass:
         btn_search.place(x=465, y=6, width=120, height=30)
 
         # Title
-        title = Label(self.root, text="Employee Details", font=("goudy old style", 15), bg="#0f4d7d", fg="white")
-        title.place(x=50, y=100, width=983)
+        title = Label(self.root, text="Employee Details", font=("goudy old style", 15, "bold"), bg="#0f4d7d", fg="white")
+        title.place(x=50, y=100, width=983, height=30)
 
         # Row 1
         lbl_empid = Label(self.root, text="Emp ID:", font=("Times New Roman", 15), bg="white")

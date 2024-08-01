@@ -20,67 +20,65 @@ class supplierClass:
         self.var_name = StringVar()
     
 
-        # Search Frame
-        SearchFrame = LabelFrame(self.root, text="Search Employee", bg="white", font=("Baskerville Old Face", 14), bd=3)
-        SearchFrame.place(x=250, y=20, width=600, height=70)
+    
+        #=====options========#
+        lbl_search = Label(self.root, text="Search by Invoice No.:" , bg="white", font=("Times New Roman", 13))
+        lbl_search.place(x=665, y=80)
 
-        lbl_search = Label(SearchFrame, text="Search by Invoice No." , font=("Times New Roman", 13))
-        lbl_search.place(x=8)
-
-        txt_search = Entry(SearchFrame, textvariable=self.var_searchtxt, font=("Times New Roman", 15), bg="lightyellow", width=28)
-        txt_search.place(x=170, y=7)
-        btn_search = Button(SearchFrame, text="Search", command=self.search, font=("Times New Roman", 14, "italic", "bold"), bg="#008080", fg="white", cursor="hand2")
-        btn_search.place(x=465, y=6, width=120, height=30)
+        txt_search = Entry(self.root, textvariable=self.var_searchtxt, font=("Times New Roman", 15), bg="lightyellow", width=14)
+        txt_search.place(x=830, y=80)
+        btn_search = Button(self.root, text="Search", command=self.search, font=("Times New Roman", 14, "italic", "bold"), bg="#008080", fg="white", cursor="hand2")
+        btn_search.place(x=980, y=78,width=65, height=30)
 
         # Title
-        title = Label(self.root, text="Supplier Details", font=("goudy old style", 15), bg="#0f4d7d", fg="white")
-        title.place(x=50, y=100, width=983)
+        title = Label(self.root, text="Supplier Details", font=("goudy old style", 15, "bold"), bg="#0f4d7d", fg="white")
+        title.place(x=50, y=10, width=998, height=40)
 
         # Row 1
-        lbl_supplier_invoice = Label(self.root, text="Invoice No.:", font=("Times New Roman", 15), bg="white")
-        lbl_supplier_invoice.place(x=50, y=150)
+        lbl_supplier_invoice = Label(self.root, text="Invoice No.:", font=("Times New Roman", 14), bg="white")
+        lbl_supplier_invoice.place(x=50, y=80)
         txt_supplier_invoice = Entry(self.root, textvariable=self.var_sup_invoice, font=("Times New Roman", 15), bg="lightyellow")
-        txt_supplier_invoice.place(x=150, y=150, width=180)
+        txt_supplier_invoice.place(x=180, y=80, width=180)
         
 
         # Row 2
-        lbl_name = Label(self.root, text="Name:", font=("Times New Roman", 15), bg="white")
-        lbl_name.place(x=50, y=190)
+        lbl_name = Label(self.root, text="Name:", font=("Times New Roman", 14), bg="white")
+        lbl_name.place(x=50, y=120)
         txt_name = Entry(self.root, textvariable=self.var_name, font=("Times New Roman", 15), bg="lightyellow")
-        txt_name.place(x=150, y=190, width=180)
+        txt_name.place(x=180, y=120, width=180)
 
         # Row 3
-        lbl_contact = Label(self.root, text="Contact:", font=("Times New Roman", 15), bg="white")
-        lbl_contact.place(x=50, y=230)
+        lbl_contact = Label(self.root, text="Contact:", font=("Times New Roman", 14), bg="white")
+        lbl_contact.place(x=50, y=160)
         txt_contact = Entry(self.root, textvariable=self.var_contact, font=("Times New Roman", 15), bg="lightyellow")
-        txt_contact.place(x=150, y=230, width=180)
+        txt_contact.place(x=180, y=160, width=180)
         
 
         # Row 4
-        lbl_desc = Label(self.root, text="Description:", font=("Times New Roman", 15), bg="white")
-        lbl_desc.place(x=50, y=270)
+        lbl_desc = Label(self.root, text="Description:", font=("Times New Roman", 14), bg="white")
+        lbl_desc.place(x=50, y=200)
 
         self.txt_desc = Text(self.root, font=("Times New Roman", 15), bg="lightyellow")
-        self.txt_desc.place(x=150, y=270, width=300, height=65)
+        self.txt_desc.place(x=180, y=200, width=470, height=90)
 
         # Buttons
         btn_add = Button(self.root, text="SAVE", command=self.add, font=("goudy old style", 14, "bold"), bg="#006f80", fg="white", cursor="hand2")
-        btn_add.place(x=500, y=305, width=110, height=28)
+        btn_add.place(x=180, y=320, width=110, height=28)
         btn_update = Button(self.root, text="UPDATE", command=self.update, font=("goudy old style", 14, "bold"), bg="#4caf50", fg="white", cursor="hand2")
-        btn_update.place(x=620, y=305, width=110, height=28)
+        btn_update.place(x=300, y=320, width=110, height=28)
         btn_delete = Button(self.root, text="DELETE", command=self.delete, font=("goudy old style", 14, "bold"), bg="#f44336", fg="white", cursor="hand2")
-        btn_delete.place(x=740, y=305, width=110, height=28)
+        btn_delete.place(x=420, y=320, width=110, height=28)
         btn_clear = Button(self.root, text="CLEAR", command=self.clear, font=("goudy old style", 14, "bold"), bg="#607d8b", fg="white", cursor="hand2")
-        btn_clear.place(x=860, y=305, width=110, height=28)
+        btn_clear.place(x=540, y=320, width=110, height=28)
 
         # Employee Details
         emp_frame = Frame(self.root, bd=3, relief=RIDGE)
-        emp_frame.place(x=0, y=350, relwidth=1, height=200)
+        emp_frame.place(x=665, y=130, width=380, height=380)
 
         scrolly = Scrollbar(emp_frame, orient=VERTICAL)
         scrollx = Scrollbar(emp_frame, orient=HORIZONTAL)
 
-        self.supplierTable = ttk.Treeview(emp_frame, columns=("invoice", "name", "contact", "desc"), yscrollcommand=scrolly.set, xscrollcommand=scrollx.set)
+        self.supplierTable = ttk.Treeview(emp_frame, columns=("invoice", "name", "contact", "desc"), yscrollcommand=scrolly.set, xscrollcommand=scrollx.set, show="headings")
         scrollx.config(command=self.supplierTable.xview)
         scrolly.config(command=self.supplierTable.yview)
 
@@ -88,10 +86,10 @@ class supplierClass:
         scrolly.pack(side=RIGHT, fill=Y)
         self.supplierTable.pack(fill=BOTH, expand=1)
 
-        self.supplierTable.heading("invoice", text="EMP ID")
+        self.supplierTable.heading("invoice", text="Invoice No.")
         self.supplierTable.heading("name", text="Name")
-        self.supplierTable.heading("contact", text="Email")
-        self.supplierTable.heading("desc", text="Gender")
+        self.supplierTable.heading("contact", text="Contact")
+        self.supplierTable.heading("desc", text="Description")
 
         self.supplierTable.column("invoice", width=90)
         self.supplierTable.column("name", width=100)
@@ -118,7 +116,7 @@ class supplierClass:
                 if row!=None:
                     messagebox.showerror("Error", "This Invoice No. is already assigned, try different.", parent=self.root)
                 else:
-                    cur.execute("INSERT INTO supplier(invoice, name, contact, desc, contact, dob, doj, pass, utype, address, salary) values(?,?,?,?)",(
+                    cur.execute("INSERT INTO supplier(invoice, name, contact, desc) values(?,?,?,?)",(
                         self.var_sup_invoice.get(),
                         self.var_name.get(),
                         self.var_contact.get(),
@@ -148,11 +146,11 @@ class supplierClass:
         f = self.supplierTable.focus()
         content = self.supplierTable.item(f)
         row = content['values']
-        self.var_sup_invoice.set(row[0]),
-        self.var_name.set(row[1]),
-        self.var_contact.set(row[2]),
-        self.txt_desc.delete('1.0',END),
-        self.txt_desc.insert(END, row[3]),
+        self.var_sup_invoice.set(row[0])
+        self.var_name.set(row[1])
+        self.var_contact.set(row[2])
+        self.txt_desc.delete('1.0',END)
+        self.txt_desc.insert(END, row[3])
 
     def update(self):
         con= sqlite3.connect(database=r'rmms.db')
@@ -201,10 +199,10 @@ class supplierClass:
             messagebox.showerror("Error", f"Error due to : {str(ex)}", parent=self.root)
 
     def clear(self):
-        self.var_sup_invoice.set(""),
-        self.var_name.set(""),
-        self.var_contact.set(""), 
-        self.txt_desc.delete('1.0',END),
+        self.var_sup_invoice.set("")
+        self.var_name.set("")
+        self.var_contact.set("") 
+        self.txt_desc.delete('1.0',END)
         self.var_searchtxt.set("")
         self.show()
     
@@ -215,7 +213,7 @@ class supplierClass:
             if self.var_searchtxt.get()=="":
                 messagebox.showerror("Error", "Invoice No. is required.", parent=self.root)
             else:
-                cur.execute("SELECT * FROM supplier WHERE inoice=?", (self.var_searchtxt.get(),))
+                cur.execute("SELECT * FROM supplier WHERE invoice=?", (self.var_searchtxt.get(),))
                 row = cur.fetchone()
                 if row!=None:
                     self.supplierTable.delete(*self.supplierTable.get_children())
