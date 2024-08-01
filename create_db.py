@@ -29,6 +29,14 @@ def create_db():
                 desc TEXT
                 )
                 """)
+    
+
+    cur.execute("""
+                CREATE TABLE IF NOT EXISTS category(
+                cid INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT
+                )
+                """)
 
     con.commit()
     con.close()

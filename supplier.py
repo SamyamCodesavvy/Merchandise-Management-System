@@ -31,8 +31,8 @@ class supplierClass:
         btn_search.place(x=980, y=78,width=65, height=30)
 
         # Title
-        title = Label(self.root, text="Supplier Details", font=("goudy old style", 15, "bold"), bg="#0f4d7d", fg="white")
-        title.place(x=50, y=10, width=998, height=40)
+        title = Label(self.root, text="Supplier Details", font=("goudy old style", 18, "bold"), bg="#0f4d7d", fg="white", bd=4, relief=RIDGE)
+        title.place(x=50, y=10, width=998, height=43)
 
         # Row 1
         lbl_supplier_invoice = Label(self.root, text="Invoice No.:", font=("Times New Roman", 14), bg="white")
@@ -90,7 +90,7 @@ class supplierClass:
         self.supplierTable.heading("name", text="Name")
         self.supplierTable.heading("contact", text="Contact")
         self.supplierTable.heading("desc", text="Description")
-
+        self.supplierTable["show"] = "headings"
         self.supplierTable.column("invoice", width=90)
         self.supplierTable.column("name", width=100)
         self.supplierTable.column("contact", width=100)
@@ -101,7 +101,7 @@ class supplierClass:
         self.supplierTable.bind("<ButtonRelease-1>", self.get_data)
 
         
-        # self.show()
+        self.show()
 
 #----------------------------------------#
     def add(self):
@@ -135,10 +135,9 @@ class supplierClass:
         try:
             cur.execute("SELECT * FROM supplier")
             rows = cur.fetchall()
-            if len(rows)>0:
-                self.supplierTable.delete(*self.supplierTable.get_children())
-                for row in rows:
-                    self.supplierTable.insert('', END, values=row)
+            self.supplierTable.delete(*self.supplierTable.get_children())
+            for row in rows:
+                self.supplierTable.insert('', END, values=row)
         except Exception as ex:
             messagebox.showerror("Error",f"Error due to : {str(ex)}", parent=self.root)
     
