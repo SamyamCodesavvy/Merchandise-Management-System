@@ -4,6 +4,7 @@ import time
 from employee import employeeClass
 from supplier import supplierClass
 from category import categoryClass
+from product import productClass
 
 class RMMS: #retail merchandise management system
     def __init__(self, root):
@@ -52,7 +53,7 @@ class RMMS: #retail merchandise management system
         btn_category = Button(LeftMenu, command=self.category,text="Categories", font=("Arial", 17, "bold"), image=self.icon_side, compound=LEFT, padx=10, pady=11, anchor="w",bg="white", bd=2,cursor="hand2")
         btn_category.pack(side=TOP, pady=2, fill=X)
 
-        btn_product = Button(LeftMenu,text="Products", font=("Arial", 17, "bold"), image=self.icon_side, compound=LEFT, padx=10, pady=11, anchor="w",bg="white", bd=2,cursor="hand2")
+        btn_product = Button(LeftMenu,text="Products", font=("Arial", 17, "bold"), command=self.product, image=self.icon_side, compound=LEFT, padx=10, pady=11, anchor="w",bg="white", bd=2,cursor="hand2")
         btn_product.pack(side=TOP, pady=2, fill=X)
 
         btn_sales = Button(LeftMenu,text="Sales", font=("Arial", 17, "bold"), image=self.icon_side, compound=LEFT, padx=10, pady=11, anchor="w",bg="white", bd=2,cursor="hand2")
@@ -114,6 +115,10 @@ class RMMS: #retail merchandise management system
     def category(self):
         self.new_win = Toplevel(self.root)
         self.new_obj = categoryClass(self.new_win)
+
+    def product(self):
+        self.new_win = Toplevel(self.root)
+        self.new_obj = productClass(self.new_win)
 
 if __name__ == "__main__":
     root = Tk()

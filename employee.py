@@ -292,7 +292,7 @@ class employeeClass:
         
         self.show()
 
-#----------------------------------------#
+#---------------functions-------------------------#
     def add(self):
         con= sqlite3.connect(database=r'rmms.db')
         cur=con.cursor()

@@ -37,6 +37,18 @@ def create_db():
                 name TEXT
                 )
                 """)
+    
+    cur.execute("""
+                CREATE TABLE IF NOT EXISTS product(
+                pid INTEGER PRIMARY KEY AUTOINCREMENT,
+                Category TEXT, 
+                Supplier TEXT, 
+                name TEXT, 
+                price TEXT, 
+                qty TEXT, 
+                status TEXT
+                )
+                """)
 
     con.commit()
     con.close()
